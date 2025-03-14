@@ -1,8 +1,11 @@
-package mapper;
+package com.example.mapper;
 
-import dto.CreateGame;
-import dto.GameResponse;
-import entity.Game;
+import com.example.dto.CreateGame;
+import com.example.dto.GameResponse;
+import com.example.entity.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameMapper {
     //Går ut på att ta in en datatyp och returnera en annan
@@ -18,6 +21,7 @@ public class GameMapper {
             return null;
         }
         Game newGame = new Game();
+
         newGame.setTitle(game.title());
         newGame.setRelease(game.release());
         newGame.setPublisher(game.publisher());

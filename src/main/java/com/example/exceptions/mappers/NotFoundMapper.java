@@ -1,6 +1,6 @@
-package exceptions.mappers;
+package com.example.exceptions.mappers;
 
-import exceptions.NotFound;
+import com.example.exceptions.NotFound;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;

@@ -1,4 +1,4 @@
-package entity;
+package com.example.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -17,51 +17,17 @@ public class Game {
     //Villkor för entity: defaultkonstruktor, id, fält, inte final - extendas i runtime
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
-
-    @Column(nullable = false)
-    @NotBlank(message = "Title is required")
     private String title;
-
-    @Column(nullable = false)
-    @NotBlank(message = "Release is required")
     private Integer release;
-
-    @Size(max = 1000)
-    private String description;
-
-    @Column(nullable = false)
-    @NotBlank(message = "Publisher is required")
     private String publisher;
-
-    @Column(nullable = false)
-    @NotBlank(message = "At least one genre is required")
-    @ElementCollection
+    private String description;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "game_genres", joinColumns = @JoinColumn(name = "game_id"))
+    @Column(name = "genres")
     private List<String> genres;
-
-    @Column(nullable = false)
-    @NotNull(message = "Price is required")
     private BigDecimal price;
 
-    //Constructors
-//    public Game() {
-//        this.price = BigDecimal.ZERO;
-//    }
-//    public Game(String title, Integer release, String description, String publisher, List<String> genres, BigDecimal price) {
-//        if (title == null || title.isBlank()) throw new IllegalArgumentException("Title is required");
-//        if (release == null) throw new IllegalArgumentException("Release year is required");
-//        if (publisher == null || publisher.isBlank()) throw new IllegalArgumentException("Publisher is required");
-//        if (genres == null || genres.isEmpty()) throw new IllegalArgumentException("At least one genre is required");
-//        if (price == null) price = BigDecimal.ZERO; // Default if missing
-//
-//        this.title = title;
-//        this.release = release;
-//        this.description = description;
-//        this.publisher = publisher;
-//        this.genres = genres;
-//        this.price = price;
-//    }
 
     public Long getId() {
         return id;
