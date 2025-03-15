@@ -5,6 +5,7 @@ import com.example.dto.CreateGame;
 import com.example.dto.GameResponse;
 import com.example.dto.UpdateGame;
 import com.example.entity.Game;
+import com.example.exceptions.EntryAlreadyExistsException;
 import com.example.persistance.GameRepository;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -15,6 +16,7 @@ import lombok.extern.java.Log;
 import com.example.mapper.GameMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 //Plural föredraget
 //Klassen som syns utåt
@@ -28,7 +30,7 @@ public class GameResource {
     private GameService gameService;
 
     @Inject //dependency injection
-    public GameResource(GameRepository repository,  GameService gameService) {
+    public GameResource(GameRepository repository, GameService gameService) {
         this.repository = repository;
         this.gameService = gameService;
     }
@@ -79,6 +81,10 @@ public class GameResource {
                     .entity("Game cannot be null")
                     .build();
         }
+        gameService.getGameByTitlePublisherRelease(game.title(), game.publisher(), game.release())
+                .ifPresent(_ -> {
+                    throw new EntryAlreadyExistsException("Game entry already exists");
+                });
         Game newGame = GameMapper.map(game);
         newGame = repository.insert(newGame);
         log.info("Creating game " + game); //För att se om valideringen fungerar
@@ -91,8 +97,8 @@ public class GameResource {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateGame(Game game, @PathParam("id") Long id) { //Innan Long @Positive validering t.ex
-        gameService.getGameById(id);
+    public Response updateGame(@Valid CreateGame createGame, @PathParam("id") Long id) { //Innan Long @Positive validering t.ex
+        Game game = GameMapper.map(createGame);
         game.setId(id);
         repository.save(game);
         return Response.noContent().build();
@@ -116,6 +122,15 @@ public class GameResource {
         if (game.price() != null)
             oldGame.setPrice(game.price());
         repository.update(oldGame);
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteGame(@PathParam("id") Long id) {
+        Game game = gameService.getGameById(id);
+        repository.delete(game);
         return Response.noContent().build();
     }
 }

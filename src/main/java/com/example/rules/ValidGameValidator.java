@@ -21,6 +21,11 @@ public class ValidGameValidator implements ConstraintValidator<ValidGame, Create
                     .buildConstraintViolationWithTemplate("Title must start with a capital letter.")
                     .addPropertyNode("title").addConstraintViolation();
             valid = false;
+        } else if (createGame.genres() == null) {
+            context
+                    .buildConstraintViolationWithTemplate("Genres cannot be null.")
+                    .addPropertyNode("genres").addConstraintViolation();
+            valid = false;
         } else if (createGame.genres().size() == 0) {
             context
                     .buildConstraintViolationWithTemplate("Genres cannot be empty.")

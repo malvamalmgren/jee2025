@@ -17,7 +17,7 @@ public record CreateGame(String title,
                          Integer release,
                          @NotBlank String publisher,
                          String description,
-                         @NotNull List<String> genres,
+                         List<String> genres,
                          @NotNull
                          @Positive(message = "Price must be positive")
                          BigDecimal price) {

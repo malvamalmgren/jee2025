@@ -3,7 +3,7 @@ package com.example.business;
 import com.example.persistance.GameRepository;
 import com.example.dto.GameResponse;
 import com.example.entity.Game;
-import com.example.exceptions.NotFound;
+import com.example.exceptions.NotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -35,14 +35,18 @@ public class GameService {
 
     public Game getGameById(Long id) {
         return repository.findById(id).orElseThrow(
-                () -> new NotFound("Game with id " + id + " not found")
+                () -> new NotFoundException("Game with id " + id + " not found")
         );
     }
 
     public Game getGameByTitle(String title) {
         return repository.findByTitle(title).orElseThrow(
-                () -> new NotFound("Game with title " + title + " not found")
+                () -> new NotFoundException("Game with title " + title + " not found")
         );
+    }
+
+    public Optional<Game> getGameByTitlePublisherRelease(String title, String publisher, Integer release) {
+        return repository.findByTitlePublisherRelease(title, publisher, release);
     }
 
     public List<GameResponse> getAllGamesByRelease() {
