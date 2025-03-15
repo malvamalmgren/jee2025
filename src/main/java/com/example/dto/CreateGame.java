@@ -2,14 +2,11 @@ package com.example.dto;
 
 import com.example.rules.ValidGame;
 import jakarta.validation.constraints.*;
-import jdk.jfr.Timespan;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 
-@ValidGame() //egen annotation
+@ValidGame()
 public record CreateGame(String title,
                          @Positive(message = "Release year must be positive")
                          @Min(1970)

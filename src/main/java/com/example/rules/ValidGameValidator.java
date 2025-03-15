@@ -1,10 +1,8 @@
 package com.example.rules;
 
 import com.example.dto.CreateGame;
-import com.example.dto.UpdateGame;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.Value;
 
 
 public class ValidGameValidator implements ConstraintValidator<ValidGame, CreateGame> {
@@ -34,14 +32,4 @@ public class ValidGameValidator implements ConstraintValidator<ValidGame, Create
         }
         return valid;
     }
-
-
-//    @Override
-//    public boolean isValid(Object value, ConstraintValidatorContext context) {
-//        return switch (value) {
-//            case CreateGame game -> validateCreateGame(CreateGame game);
-//            case UpdateGame game -> validateUpdateGame(game.title());
-//            default -> false;
-//        }
-//    }
 }

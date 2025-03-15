@@ -1,9 +1,6 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,9 +9,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "game")
 public class Game {
-    //Modellen som kopplas mot databasen
-    //Entitetsklass i JPA
-    //Villkor för entity: defaultkonstruktor, id, fält, inte final - extendas i runtime
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +26,7 @@ public class Game {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,36 +60,47 @@ public class Game {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public int getRelease() {
         return release;
     }
+
     public void setRelease(int release) {
         this.release = release;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getPublisher() {
         return publisher;
     }
+
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
+
     public List<String> getGenres() {
         return genres;
     }
+
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
+
     public BigDecimal getPrice() {
         return price;
     }
+
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

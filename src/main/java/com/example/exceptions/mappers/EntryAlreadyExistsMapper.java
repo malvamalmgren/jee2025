@@ -1,7 +1,6 @@
 package com.example.exceptions.mappers;
 
 import com.example.exceptions.EntryAlreadyExistsException;
-import com.example.exceptions.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;

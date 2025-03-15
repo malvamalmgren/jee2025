@@ -1,16 +1,14 @@
-package com.example.persistance;
+package com.example.persistence;
 
 import com.example.entity.Game;
 import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.*;
 
-import java.awt.font.OpenType;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, Long> {
-    //Grundläggande CRUD-operationer finns redan via CrudRepository
 
     @Query("select g from Game g where title = :title")
     Optional<Game> findByTitle(@Param("title") String title);

@@ -4,11 +4,8 @@ import com.example.dto.CreateGame;
 import com.example.dto.GameResponse;
 import com.example.entity.Game;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameMapper {
-    //Går ut på att ta in en datatyp och returnera en annan
     public static GameResponse map(Game game) {
         if (game == null) {
             return null;

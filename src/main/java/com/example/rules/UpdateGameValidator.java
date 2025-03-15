@@ -1,14 +1,8 @@
 package com.example.rules;
 
-import com.example.dto.CreateGame;
 import com.example.dto.UpdateGame;
-import com.example.entity.Game;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.Value;
-
-import java.io.Serializable;
-
 
 public class UpdateGameValidator implements ConstraintValidator<ValidUpdateGame, UpdateGame> {
     @Override
