@@ -8,6 +8,9 @@ import com.example.persistence.GameRepository;
 import com.example.dto.GameResponse;
 import com.example.entity.Game;
 import com.example.exceptions.NotFoundException;
+import jakarta.data.Order;
+import jakarta.data.Sort;
+import jakarta.data.page.PageRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -17,6 +20,8 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class GameService {
+    private final static int DEFAULT_PAGE = 1;
+    private final static int DEFAULT_PAGE_SIZE = 10;
 
     private GameRepository repository;
 
@@ -28,8 +33,12 @@ public class GameService {
     public GameService() {
     }
 
-    public List<GameResponse> getAllGames() {
-        return repository.findAll()
+    private PageRequest createPageRequest(int page, int size) {
+        return PageRequest.ofPage(page == 0 ? DEFAULT_PAGE : page).size(size == 0 ? DEFAULT_PAGE_SIZE : size);
+    }
+
+    public List<GameResponse> getAllGames(int page, int size) {
+        return repository.findAll(createPageRequest(page, size), Order.by(Sort.asc("id"))).stream()
                 .map(GameResponse::new)
                 .filter(Objects::nonNull)
                 .toList();
@@ -52,15 +61,15 @@ public class GameService {
         return repository.findByTitlePublisherRelease(title, publisher, release);
     }
 
-    public List<GameResponse> getAllGamesByRelease() {
-        return repository.findAllByRelease()
+    public List<GameResponse> getAllGamesByRelease(int page, int size) {
+        return repository.findAllByRelease(createPageRequest(page, size)).stream()
                 .map(GameResponse::new)
                 .filter(Objects::nonNull)
                 .toList();
     }
 
-    public List<GameResponse> getGamesByPublisher(String publisher) {
-        return repository.findByPublisher(publisher)
+    public List<GameResponse> getGamesByPublisher(String publisher, int page, int size) {
+        return repository.findByPublisher(publisher, createPageRequest(page, size)).stream()
                 .map(GameResponse::new)
                 .filter(Objects::nonNull)
                 .toList();

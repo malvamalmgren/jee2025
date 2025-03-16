@@ -50,7 +50,7 @@ class GameResourceTest {
 
     @Test
     void getAllGamesReturnsAllGames() throws URISyntaxException, UnsupportedEncodingException {
-        Mockito.when(gameService.getAllGames()).thenReturn(List.of(
+        Mockito.when(gameService.getAllGames(0, 0)).thenReturn(List.of(
                 new GameResponse(1L, "Ping", 1971, "Atari", "Not tennis", List.of("PVP"), BigDecimal.ONE),
                 new GameResponse(2L, "Pong", 1972, "Atari", "Kinda tennis", List.of("PVP"), BigDecimal.TWO)));
         MockHttpRequest request = MockHttpRequest.get("/games");
@@ -133,7 +133,7 @@ class GameResourceTest {
     }
 
     @Test
-    void getGameByTitleNotFound() throws URISyntaxException, UnsupportedEncodingException {
+    void getGameByTitleNotFound() throws URISyntaxException {
         Mockito.when(gameService.getGameByTitle("NonexistentGame"))
                 .thenThrow(new NotFoundException("Game with title NonexistentGame not found"));
         MockHttpRequest request = MockHttpRequest.get("/games/title/NonexistentGame");
@@ -144,7 +144,7 @@ class GameResourceTest {
 
     @Test
     void getAllGamesByReleaseReturnGames() throws URISyntaxException, UnsupportedEncodingException {
-        Mockito.when(gameService.getAllGamesByRelease()).thenReturn(List.of(
+        Mockito.when(gameService.getAllGamesByRelease(0, 0)).thenReturn(List.of(
                 new GameResponse(1L, "Ping", 1971, "Atari", "Not tennis", List.of("PVP"), BigDecimal.ONE),
                 new GameResponse(2L, "Pong", 1972, "Atari", "Kinda tennis", List.of("PVP"), BigDecimal.TWO)));
         MockHttpRequest request = MockHttpRequest.get("/games/release");
@@ -158,7 +158,7 @@ class GameResourceTest {
 
     @Test
     void getGamesByPublisherReturnGames() throws URISyntaxException, UnsupportedEncodingException {
-        Mockito.when(gameService.getGamesByPublisher("Atari")).thenReturn(List.of(new GameResponse(1L, "Ping", 1971, "Atari", "Not tennis", List.of("PVP"), BigDecimal.ONE)));
+        Mockito.when(gameService.getGamesByPublisher("Atari", 0, 0)).thenReturn(List.of(new GameResponse(1L, "Ping", 1971, "Atari", "Not tennis", List.of("PVP"), BigDecimal.ONE)));
         MockHttpRequest request = MockHttpRequest.get("/games/publisher/Atari");
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
@@ -245,7 +245,7 @@ class GameResourceTest {
     }
 
     @Test
-    void deleteGameNotFound() throws URISyntaxException, UnsupportedEncodingException {
+    void deleteGameNotFound() throws URISyntaxException {
         Mockito.doThrow(new NotFoundException("Game with id 999 not found"))
                 .when(gameService).deleteGame(999L);
         MockHttpRequest request = MockHttpRequest.delete("/games/999");

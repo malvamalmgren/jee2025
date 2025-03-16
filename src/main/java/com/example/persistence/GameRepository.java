@@ -1,11 +1,12 @@
 package com.example.persistence;
 
 import com.example.entity.Game;
+import jakarta.data.page.Page;
+import jakarta.data.page.PageRequest;
 import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.*;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, Long> {
@@ -13,9 +14,8 @@ public interface GameRepository extends CrudRepository<Game, Long> {
     @Query("select g from Game g where title = :title")
     Optional<Game> findByTitle(@Param("title") String title);
 
-    @Query("select g from Game g " +
-            "where publisher = :publisher order by g.publisher asc")
-    Stream<Game> findByPublisher(String publisher);
+    @Query("SELECT g FROM Game g WHERE g.publisher = :publisher ORDER BY g.publisher ASC")
+    Page<Game> findByPublisher(@Param("publisher") String publisher, PageRequest pageable);
 
     @Query("select g from Game g where title = :title and publisher = :publisher and release = :release")
     Optional<Game> findByTitlePublisherRelease(@Param("title") String title,
@@ -23,5 +23,6 @@ public interface GameRepository extends CrudRepository<Game, Long> {
                                                @Param("release") Integer release);
 
     @Query("select g from Game g order by g.release asc")
-    Stream<Game> findAllByRelease();
+    Page<Game> findAllByRelease(PageRequest pageable);
+
 }

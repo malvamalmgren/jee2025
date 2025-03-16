@@ -84,7 +84,7 @@ class GameRestEasyTest {
 
     @Test
     void getAllGamesReturnsAllGames() {
-        Mockito.when(gameService.getAllGames()).thenReturn(List.of(
+        Mockito.when(gameService.getAllGames(0, 0)).thenReturn(List.of(
                 new GameResponse(1L, "Pong", 1972, "Atari", "Kinda tennis", List.of("PVP"), BigDecimal.TWO)));
         RestAssured.given()
                 .when()
@@ -220,7 +220,7 @@ class GameRestEasyTest {
         game.setGenres(List.of("PVP"));
         List<GameResponse> responses = List.of(new GameResponse(game));
 
-        Mockito.when(gameService.getGamesByPublisher(publisher)).thenReturn(responses);
+        Mockito.when(gameService.getGamesByPublisher(publisher, 0, 0)).thenReturn(responses);
 
         RestAssured.given()
                 .get("/games/publisher/{publisher}", publisher)

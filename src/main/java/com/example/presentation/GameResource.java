@@ -30,8 +30,8 @@ public class GameResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GameResponse> getAllGames() {
-        return gameService.getAllGames();
+    public List<GameResponse> getAllGames(@QueryParam("page") int page, @QueryParam("size") int size) {
+        return gameService.getAllGames(page, size);
     }
 
     @GET
@@ -51,15 +51,15 @@ public class GameResource {
     @GET
     @Path("publisher/{publisher}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GameResponse> getGamesByPublisher(@PathParam("publisher") String publisher) {
-        return gameService.getGamesByPublisher(publisher);
+    public List<GameResponse> getGamesByPublisher(@PathParam("publisher") String publisher, @QueryParam("page") int page, @QueryParam("size") int size) {
+        return gameService.getGamesByPublisher(publisher, page, size);
     }
 
     @GET
     @Path("/release")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GameResponse> getAllGamesByRelease() {
-        return gameService.getAllGamesByRelease();
+    public List<GameResponse> getAllGamesByRelease(@QueryParam("page") int page, @QueryParam("size") int size) {
+        return gameService.getAllGamesByRelease(page, size);
     }
 
     @POST
