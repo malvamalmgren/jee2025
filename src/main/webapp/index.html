@@ -1,28 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <title>Welcome to the Game REST API!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Comic Sans MS", sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .mascot {
+            font-size: 4rem;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            to {
+                transform: translateY(-15px);
+            }
+        }
+
+        main {
+            margin: 2em auto;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 1.5em;
+            border-radius: 10px;
+        }
+
+        a {
+            color: #e55d87;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin: 2em 0;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
+
 <body>
 <header>
-    <h1>Welcome!</h1>
+    <span class="mascot">🎮</span>
+    <h1>Welcome to the Game REST API!</h1>
 </header>
+
 <main>
+    <p>Hello there! This application manages games in our awesome database. You can
+        create, update, delete or fetch games using our RESTful API.</p>
+
     <p>
-        This is a standard index.html setup.
+        <a href="/api/games" target="_blank">View All Games</a>
     </p>
     <p>
-        <a href="C:\Users\MalvaMalmgren\IdeaProjects\demo\src\main\webapp\images\cube.jpg"><img width="100"
-           src="images/cube.jpg">
-        </a>
+        <em>Check the <code>/api/games</code> endpoint for more details!</em>
     </p>
 </main>
+
 <footer>
-    <p>&copy; 2025 Malva</p>
+    <p>Thank you for stopping by, and happy gaming! &copy; 2025</p>
 </footer>
-<script src="script.js"></script>
 </body>
 </html>
